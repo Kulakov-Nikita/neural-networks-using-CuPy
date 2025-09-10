@@ -1,4 +1,5 @@
 cupy-cuda13x
 numpy
+pandas
 matplotlib
 tqdm
