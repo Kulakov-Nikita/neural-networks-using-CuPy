@@ -6,7 +6,7 @@ import pandas as pd
 
 
 def load_mushrooms() -> Tuple[cp.ndarray, cp.ndarray, cp.ndarray, cp.ndarray]:
-    clean_data = pd.read_csv('Mushrooms.csv') 
+    clean_data = pd.read_csv('data/Mushrooms.csv') 
     train_df = clean_data.sample(frac=0.7, random_state=42)
     test_df = clean_data.drop(train_df.index)
 
