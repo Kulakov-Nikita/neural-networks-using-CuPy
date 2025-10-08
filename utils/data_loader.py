@@ -26,7 +26,11 @@ def load_dataset(dataset_name: str, train_percent: float, load_percent: float = 
     match dataset_name:
         case "Mushrooms":
             train_X, train_y, test_X, test_y = load_mushrooms()
-
+        case "MNIST":
+            from keras.datasets import mnist
+            (train_X, train_y), (test_X, test_y) = mnist.load_data()
+            train_y, test_y = one_hot(train_y), one_hot(test_y)
+            
     X, y = cp.concatenate([cp.asarray(train_X), cp.asarray(test_X)]), cp.concatenate([train_y, test_y])
     X, y = X[:round(len(X)*load_percent)], y[:round(len(X)*load_percent)]
     return X[:round(len(X)*train_percent)], y[:round(len(y)*train_percent)], X[round(len(X)*train_percent):], y[round(len(y)*train_percent):]
