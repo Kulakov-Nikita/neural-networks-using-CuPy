@@ -2,6 +2,7 @@ import cupy as cp
 
 from model.model import NNet, cross_entropy
 from layers.recurrent.rnn import RNN
+from layers.recurrent.lstm import LSTM
 from layers.dense import Dense
 from layers.activations import SoftMax
 from utils.data_loader import load_steel_industry_sequences
@@ -65,15 +66,16 @@ if __name__ == "__main__":
 
     print(f"train_size: {len(X_train)}, test_size: {len(X_test)}")
 
-
     hidden_size = 128
     batch_size = 2048
 
     loss_curve_rnn = run_experiment("RNN", RNN, X_train, y_train, X_test, y_test, test_labels, hidden_size, batch_size)
+    loss_curve_lstm = run_experiment("LSTM", LSTM, X_train, y_train, X_test, y_test, test_labels, hidden_size, batch_size)
 
     import matplotlib.pyplot as plt
 
     plt.plot(range(len(loss_curve_rnn)), loss_curve_rnn.get(), label="RNN")
+    plt.plot(range(len(loss_curve_lstm)), loss_curve_lstm.get(), label="LSTM")
     plt.title("Ошибка на тесте")
     plt.xlabel("Loss")
     plt.ylabel("Epoch")
